@@ -8,11 +8,11 @@ DSQ uses a min-heap structured by a task priority value, this priority value wil
 
 Routines will be structured in a min-heap with the lowest priority being first. Routines will be able to add other routines into the DSQ. This will allow for routine fragmentation into sub-routines. Routines will be defined as high-level tasks which require no additional data to execute. This allows for robustness within the DSQ as well as simplicity. Routines in the program will be as follows:
 
-'
+```
 Type: enum
 priority_value: long
 routine_addr: void *
-'
+```
 
 ### Usage
 
