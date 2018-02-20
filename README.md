@@ -10,9 +10,11 @@ Routines will be structured in a min-heap with the lowest priority being first. 
 ```
 type: int
 priority_value: long
-routine_addr: void *
+routine_addr: std::function<void()>
 ```
 Routines on execution will be removed from the min-heap, then the function in routine_addr will be executed. In the event that priority_value >= size of long, the DSQ will issue a priority reset on all entries in the heap. Then priority_counter will be reset to 0. This is done to prevent overflows or reaching maximums within the DSQ, in this case such a issue would block the DSQ from dynamic execution. 
+
+Adding routines to the DSQ will create a struct as defined above, then the newly created struct will be inserted into the DSQ. 
 
 ### Usage
 
