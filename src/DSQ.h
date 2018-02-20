@@ -15,8 +15,8 @@ Description:
 struct Routine{
 	int type;	// type as int, can also be used with a enum
 	long priority_value; // determines the placement within the DEQ
-	std::function<void()> routine_addr; // function pointer to routine
-}
+	void (*routine_addr)(); // function pointer to static routine
+};
 
 // create alis between struct Routine and Routine
 typedef struct Routine Routine;
@@ -25,6 +25,24 @@ typedef struct Routine Routine;
 class DEQ{
 private:
 	long priority_cnt; // main priority counter
+	// min-heap
+	std::priority_queue<Routine, std::vector<Routine>, Comparator> sch_queue;
+	
+	// create_routine - creates a Routine struct on the stack, fills in the values 
+	// then returns the created struct.
+	// args:
+	//		type: int - type as int, can also be used with a enum
+	//		priority_mult: int - ranging from (0+)
+	//		routine_addr: void(*)()
+	// return:
+	//		The Routine struct created and filled in with the parameters. 
+	Routine create_routine(int type, int priority_mult, void (*routine_addr)());
+	
+	// insert_routine - inserts the provided routine into the sch_queue
+	// args:
+	//		routine: Routine - the routine to be inserted
+	void insert_routine(const Routine &routine);
+	
 public:
 	
 	// public constructor used to initialize DEQ varables. 
@@ -34,9 +52,15 @@ public:
 	// args:
 	//		type: int - type as int, can also be used with a enum
 	//		priority_mult: int - ranging from (0+)
-	//		func: std::function<void()> - function pointer to routine
-	void add_routine(int type, int priority_mult, const std::function<void()> &func);
+	//		routine_addr: void(*)()
+	void add_routine(int type, int priority_mult, void (*routine_addr)());
 	
-}
+};
+
+// Comparator class used to to compare Routine objects
+class Comparator{
+public:
+	bool operator() (const Routine &lhs, const Routine &rhs);
+};
 
 #endif /* end of include guard: DSQ_H */
