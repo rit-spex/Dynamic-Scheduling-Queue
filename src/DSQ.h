@@ -43,6 +43,13 @@ private:
 	//		routine: Routine - the routine to be inserted
 	void insert_routine(const Routine &routine);
 	
+	// calculate_priority - used to calculate the priority value stored in the Routine struct
+	// args:
+	//		priority_mult: int - used to specify execution interval
+	// return:
+	// 		value containing the priority value
+	long calculate_priority(int priority_mult);
+	
 public:
 	
 	// public constructor used to initialize DEQ varables. 
@@ -55,6 +62,14 @@ public:
 	//		routine_addr: void(*)()
 	void add_routine(int type, int priority_mult, void (*routine_addr)());
 	
+	// execute - called in a loop, main function for executing routines placed in
+	// the DEQ.
+	void execute();
+	
+	// get_size - getter function
+	// return:
+	//		The size of the priority_queue/DSQ
+	int get_size();
 };
 
 // Comparator class used to to compare Routine objects
