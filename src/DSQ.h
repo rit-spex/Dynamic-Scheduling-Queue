@@ -9,22 +9,29 @@ Description:
 #ifndef DSQ_H
 #define DSQ_H
 
+#include <queue>
+
 #define PRIORITY_BASE 4
 
 // struct Routine -- holds information regarding routines
 struct Routine{
 	int type;	// type as int, can also be used with a enum
-	long priority_value; // determines the placement within the DEQ
+	unsigned long int priority_value; // determines the placement within the DEQ
 	void (*routine_addr)(); // function pointer to static routine
 };
 
 // create alis between struct Routine and Routine
 typedef struct Routine Routine;
 
+// Comparator class used to to compare Routine objects
+class Comparator{
+public:
+	bool operator() (const Routine &lhs, const Routine &rhs);
+};
 
-class DEQ{
+class DSQ{
 private:
-	long priority_cnt; // main priority counter
+	unsigned long int priority_cnt; // main priority counter
 	// min-heap
 	std::priority_queue<Routine, std::vector<Routine>, Comparator> sch_queue;
 	
@@ -36,7 +43,7 @@ private:
 	//		routine_addr: void(*)()
 	// return:
 	//		The Routine struct created and filled in with the parameters. 
-	Routine create_routine(int type, int priority_mult, void (*routine_addr)());
+	Routine * create_routine(int type, int priority_mult, void (*routine_addr)());
 	
 	// insert_routine - inserts the provided routine into the sch_queue
 	// args:
@@ -48,12 +55,17 @@ private:
 	//		priority_mult: int - used to specify execution interval
 	// return:
 	// 		value containing the priority value
-	long calculate_priority(int priority_mult);
+	unsigned long int calculate_priority(int priority_mult);
+	
+	// priority_reset - resets all priority values within DSQ entires, used when a
+	// priority value reaches sizeof long
+	void priority_reset();
+	
 	
 public:
 	
 	// public constructor used to initialize DEQ varables. 
-	DEQ();
+	DSQ();
 	
 	// add_routine -- main method for submitting routines to the DEA
 	// args:
@@ -70,12 +82,7 @@ public:
 	// return:
 	//		The size of the priority_queue/DSQ
 	int get_size();
-};
 
-// Comparator class used to to compare Routine objects
-class Comparator{
-public:
-	bool operator() (const Routine &lhs, const Routine &rhs);
 };
 
 #endif /* end of include guard: DSQ_H */
