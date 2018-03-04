@@ -9,7 +9,7 @@ Description:
 #ifndef DSQ_H
 #define DSQ_H
 
-#include <queue>
+#include "queue"
 
 #define PRIORITY_BASE 4
 
@@ -33,7 +33,7 @@ class DSQ{
 private:
 	unsigned long int priority_cnt; // main priority counter
 	// min-heap
-	std::priority_queue<Routine, std::vector<Routine>, Comparator> sch_queue;
+	priority_queue<Routine, 100, Comparator> sch_queue;
 	
 	// create_routine - creates a Routine struct on the stack, fills in the values 
 	// then returns the created struct.
@@ -43,7 +43,7 @@ private:
 	//		routine_addr: void(*)()
 	// return:
 	//		The Routine struct created and filled in with the parameters. 
-	Routine * create_routine(int type, int priority_mult, void (*routine_addr)());
+	Routine create_routine(int type, int priority_mult, void (*routine_addr)());
 	
 	// insert_routine - inserts the provided routine into the sch_queue
 	// args:

@@ -15,9 +15,9 @@ DSQ::DSQ(){
 void DSQ::add_routine(int type, int priority_mult, void (*routine_addr)()){
 	
 	// Create routine dynamically 
-	Routine * routine = create_routine(type, priority_mult, routine_addr);
+	Routine routine = create_routine(type, priority_mult, routine_addr);
 	// Place routine into the DSQ(sch_queue)
-	insert_routine(*routine);
+	insert_routine(routine);
 }
 
 void DSQ::execute(){
@@ -34,12 +34,12 @@ int DSQ::get_size(){
 	return sch_queue.size(); 
 }
 
-Routine * DSQ::create_routine(int type, int priority_mult, void (*routine_addr)()){
-	Routine * routine = new Routine;
+Routine DSQ::create_routine(int type, int priority_mult, void (*routine_addr)()){
+	Routine routine;
 	
-	routine->type = type;
-	routine->priority_value = calculate_priority(priority_mult);
-	routine->routine_addr = routine_addr;
+	routine.type = type;
+	routine.priority_value = calculate_priority(priority_mult);
+	routine.routine_addr = routine_addr;
 	
 	return routine;
 }

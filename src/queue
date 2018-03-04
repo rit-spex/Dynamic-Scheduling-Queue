@@ -1,0 +1,65 @@
+/*
+File: queue
+Organization: RIT Space Exploration
+Description: 
+	Priority Queue implementation using a min-heap. 
+*/
+
+#define HEAP_CAP 100
+
+template <class T, unsigned int capacity, class Compare>
+class priority_queue {
+public:
+
+    priority_queue(){}
+
+	/**
+	 * Remove first element from the priority queue
+	 */
+	void pop();
+
+    /**
+     * Grab the first element in the priority queue and return it
+     * @return
+     *      First element in the priority queue
+     */
+    T top(){
+        return heap_array[0];
+    }
+
+    /**
+     * Push a element onto the priority queue
+     * @param element
+     *      The element to be inserted.
+     */
+    void push(T element){
+
+    }
+
+    /**
+     * Return the size of the priority queue
+     * @return
+     *      Size of priority queue.
+     */
+	int size(){
+        return queue_size;
+    }
+
+private:
+
+    // Number of current elements in the queue.
+    unsigned int queue_size;
+
+    // Min-Heap array
+    T heap_array[capacity];
+
+    /**
+     * Checks if heap has hit max size.
+     * @return
+     *      TRUE: if size is greater than capacity
+     *      FALSE: if size is less than capacity
+     */
+    bool hit_capacity(){
+        return queue_size < capacity;
+    }
+};
