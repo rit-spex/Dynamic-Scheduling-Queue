@@ -1,9 +1,10 @@
-/*
-File: DSQ.cpp
-Organization: RIT Space Exploration
-Description: 
-	Dynamic Scheduling Queue(DSQ) is a library used to provide dynamic execution 
-	of tasks or other routines within a microprocessor. 
+/**
+ * File: DSQ.cpp
+ * Organization: RIT Space Exploration
+ * Author: Dylan Wagner (drw6528@rit.edu)
+ * Description:
+ *      Dynamic Scheduling Queue(DSQ) is a library used to provide dynamic execution
+ *      of tasks or other routines within a microprocessor.
 */
 
 #include "DSQ.h"
@@ -60,6 +61,5 @@ void DSQ::priority_reset(){
 }
 
 bool Comparator::operator() (const Routine &lhs, const Routine &rhs){
-	// TODO
-	return true;
+	return lhs.priority_value < rhs.priority_value;;
 }

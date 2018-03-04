@@ -1,9 +1,10 @@
-/*
-File: DSQ.h
-Organization: RIT Space Exploration
-Description: 
-	Dynamic Scheduling Queue(DSQ) is a library used to provide dynamic execution 
-	of tasks or other routines within a microprocessor. 
+/**
+ * File: DSQ.h
+ * Organization: RIT Space Exploration
+ * Author: Dylan Wagner (drw6528@rit.edu)
+ * Description:
+ *	    Dynamic Scheduling Queue(DSQ) is a library used to provide dynamic execution
+ *	    of tasks or other routines within a microprocessor.
 */
 
 #ifndef DSQ_H
@@ -12,6 +13,7 @@ Description:
 #include "queue"
 
 #define PRIORITY_BASE 4
+#define PRIORITY_CAP 100
 
 // struct Routine -- holds information regarding routines
 struct Routine{
@@ -26,14 +28,14 @@ typedef struct Routine Routine;
 // Comparator class used to to compare Routine objects
 class Comparator{
 public:
-	bool operator() (const Routine &lhs, const Routine &rhs);
+    bool operator() (const Routine& lhs, const Routine& rhs);
 };
 
 class DSQ{
 private:
 	unsigned long int priority_cnt; // main priority counter
 	// min-heap
-	priority_queue<Routine, 100, Comparator> sch_queue;
+	priority_queue<Routine, PRIORITY_CAP, Comparator> sch_queue;
 	
 	// create_routine - creates a Routine struct on the stack, fills in the values 
 	// then returns the created struct.
