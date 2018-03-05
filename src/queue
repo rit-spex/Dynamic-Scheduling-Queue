@@ -17,9 +17,6 @@ template <class T, unsigned int capacity, class Compare>
 class priority_queue {
 public:
 
-    // Empty constructor
-    priority_queue(){}
-
 	/**
 	 * Remove first element from the priority queue
 	 */
@@ -36,6 +33,8 @@ public:
 
             if(LCHILD(cnt) <= queue_size) lchild = LCHILD(cnt);
             if(RCHILD(cnt) <= queue_size) rchild = RCHILD(cnt);
+
+            if(lchild == rchild) break;
 
             if(compare(heap_array[lchild], heap_array[rchild])){
                 swap(cnt, lchild);
