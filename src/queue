@@ -8,7 +8,8 @@
 
 #define LCHILD(x) 2 * x
 #define RCHILD(x) 2 * x + 1
-#define PARENT(x) x / 2
+#define PARENT(x) (int) x / 2
+#define START 1
 
 #define NULL 0
 
@@ -23,8 +24,8 @@ public:
 	 * Remove first element from the priority queue
 	 */
 	T pop(){
-        T root = heap_array[1];
-        heap_array[1] = heap_array[queue_size];
+        T root = heap_array[START];
+        heap_array[START] = heap_array[queue_size];
         queue_size -= 1;
 
         int cnt = 1;
@@ -53,7 +54,7 @@ public:
      *      First element in the priority queue
      */
     T top(){
-        if(queue_size > 0) return heap_array[1];
+        if(queue_size > 0) return heap_array[START];
         return NULL;
     }
 
