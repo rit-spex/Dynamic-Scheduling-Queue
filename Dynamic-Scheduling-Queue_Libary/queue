@@ -11,8 +11,6 @@
 #define PARENT(x) (int) x / 2
 #define START 1
 
-#define NULL 0
-
 template <class T, unsigned int capacity, class Compare>
 class priority_queue {
 public:
@@ -54,7 +52,7 @@ public:
      */
     T top(){
         if(queue_size > 0) return heap_array[START];
-        return NULL;
+        return 0;
     }
 
     /**
