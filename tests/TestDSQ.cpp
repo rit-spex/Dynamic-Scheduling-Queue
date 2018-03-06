@@ -29,7 +29,7 @@ int main(){
     while (dsq.get_size())
     dsq.execute();
 
-    for (int i = 0; i < 20; ++i) {
+    for(int i = 0; i < 20; ++i) {
         dsq.add_routine(0, 1, testFunc);
         dsq.execute();
     }
