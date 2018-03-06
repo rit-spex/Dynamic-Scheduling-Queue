@@ -22,13 +22,11 @@ void DSQ::add_routine(int type, int priority_mult, void (*routine_addr)()){
 }
 
 void DSQ::execute(){
-	// TODO
-	// Error checking everywhere
-	// if sch_queue not empty
-	// call function in routine_addr
-	// pop queue
-	// destroy struct
-	Routine poped = sch_queue.pop();
+
+    priority_cnt += 1;
+
+	Routine current_routine = sch_queue.pop();
+    current_routine.routine_addr();
 }
 
 int DSQ::get_size(){

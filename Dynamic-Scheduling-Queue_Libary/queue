@@ -116,7 +116,7 @@ private:
      *      FALSE: if size is less than capacity
      */
     bool hit_capacity(){
-        return queue_size < capacity;
+        return queue_size > capacity;
     }
 
     /**
