@@ -9,7 +9,7 @@ DSQ uses a min-heap structured by a task priority value, this priority value wil
 Routines will be structured in a min-heap with the lowest priority being first. Routines will be able to add other routines into the DSQ. This will allow for routine fragmentation into sub-routines. Routines will be defined as high-level tasks which require no additional data to execute. This allows for robustness within the DSQ as well as simplicity. Routines in the program will be as follows:
 ```
 type: int
-priority_value: long
+priority_value: unsigned long int
 routine_addr: void(*)()
 ```
 Routines on execution will be removed from the min-heap, then the function in routine_addr will be executed. In the event that priority_value >= size of long, the DSQ will issue a priority reset on all entries in the heap. Then priority_counter will be reset to 0. This is done to prevent overflows or reaching maximums within the DSQ, in this case such a issue would block the DSQ from dynamic execution. 

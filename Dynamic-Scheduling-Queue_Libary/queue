@@ -101,7 +101,7 @@ public:
 private:
 
     // Number of current elements in the queue.
-    unsigned int queue_size;
+    unsigned int queue_size = 0;
 
     // Min-Heap array
     T heap_array[capacity];
@@ -116,7 +116,7 @@ private:
      *      FALSE: if size is less than capacity
      */
     bool hit_capacity(){
-        return queue_size > capacity;
+        return queue_size >= capacity;
     }
 
     /**

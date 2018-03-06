@@ -22,6 +22,8 @@ void testFunc(){
 
 int main(){
 
+    std::cout << sizeof(Routine);
+
     DSQ dsq;
     for (int i = 0; i < 2000; ++i) {
         dsq.add_routine(0, 1, testFunc);

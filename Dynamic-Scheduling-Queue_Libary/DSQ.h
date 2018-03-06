@@ -13,7 +13,7 @@
 #include "queue"
 
 #define PRIORITY_BASE 4
-#define PRIORITY_CAP 100
+#define PRIORITY_CAP 250
 
 // struct Routine -- holds information regarding routines
 struct Routine{
