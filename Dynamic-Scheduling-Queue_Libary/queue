@@ -51,11 +51,12 @@ public:
     /**
      * Grab the first element in the priority queue and return it
      * @return
-     *      First element in the priority queue
+     *      First element in the priority queue if queue_size > 0
+     *      Default element id queue size is 0
      */
     T top(){
         if(queue_size > 0) return heap_array[START];
-        return 0;
+        return heap_array[0];
     }
 
     /**
@@ -64,6 +65,9 @@ public:
      *      The element to be inserted.
      */
     void push(T element){
+
+        if (hit_capacity()) return; // queue is full
+
         queue_size += 1;
         heap_array[queue_size] = element;
 

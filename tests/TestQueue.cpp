@@ -9,15 +9,35 @@
 #include "../Dynamic-Scheduling-Queue_Libary/DSQ.h"
 #include <iostream>
 
+Routine bulid_fake_routine(int type, int priority_mult, void (*routine_addr)()){
+    Routine routine;
+
+    routine.type = type;
+    routine.priority_value = priority_mult;
+    routine.routine_addr = routine_addr;
+
+    return routine;
+}
+
 int main(){
 
-    DSQ dsq;
-    dsq.set_default(1, 0);
-    dsq.execute();
-    dsq.add_routine(0, 1, 0);
-    dsq.add_routine(0, 3, 0);
+    priority_queue<Routine, 100, Comparator> queuei;
 
-    dsq.execute();
+    queuei.push(bulid_fake_routine(0, 1, 0));
+    Routine r1 = queuei.pop();
 
-    std::cout << dsq.get_size();
+    queuei.push(bulid_fake_routine(0, 2, 0));
+    queuei.push(bulid_fake_routine(0, 55, 0));
+    queuei.push(bulid_fake_routine(0, 0, 0));
+    queuei.push(bulid_fake_routine(0, 0, 0));
+    Routine r2 = queuei.pop();
+
+    queuei.pop();
+    queuei.pop();
+    queuei.pop();
+    // Empty
+
+    queuei.pop(); // Returns default
+
+    std::cout << queuei.size();
 }
