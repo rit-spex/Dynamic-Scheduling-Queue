@@ -85,6 +85,16 @@ public:
 	//		The size of the priority_queue/DSQ
 	int get_size();
 
+    /**
+     * Sets a default route within the queue, the default route is executed when
+     * the priority queue is empty.
+     * @param type
+     *      Type of routine
+     * @param routine_addr
+     *      Code to execute
+     */
+    void set_default(int type, void (*routine_addr)());
+
 };
 
 #endif /* end of include guard: DSQ_H */

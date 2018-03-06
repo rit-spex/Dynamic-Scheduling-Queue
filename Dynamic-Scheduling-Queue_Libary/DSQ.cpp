@@ -28,11 +28,18 @@ void DSQ::execute(){
 	// call function in routine_addr
 	// pop queue
 	// destroy struct
+	Routine poped = sch_queue.pop();
 }
 
 int DSQ::get_size(){
 	
 	return sch_queue.size(); 
+}
+
+void DSQ::set_default(int type, void (*routine_addr)()) {
+
+    Routine routine = create_routine(type, 0, routine_addr);
+    sch_queue.set_default(routine);
 }
 
 Routine DSQ::create_routine(int type, int priority_mult, void (*routine_addr)()){

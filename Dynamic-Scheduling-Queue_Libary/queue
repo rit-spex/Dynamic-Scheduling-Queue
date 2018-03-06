@@ -19,6 +19,8 @@ public:
 	 * Remove first element from the priority queue
 	 */
 	T pop(){
+        if(!queue_size) return heap_array[0]; // If array is empty return default
+
         T root = heap_array[START];
         heap_array[START] = heap_array[queue_size];
         queue_size -= 1;
@@ -38,6 +40,7 @@ public:
                 swap(cnt, lchild);
                 cnt = lchild;
             } else {
+                if(rchild == cnt) break;
                 swap(cnt, rchild);
                 cnt = rchild;
             }
@@ -66,7 +69,7 @@ public:
 
         int dec_cnt = queue_size;
 
-        while (compare(element, heap_array[PARENT(dec_cnt)])){
+        while (compare(element, heap_array[PARENT(dec_cnt)]) && PARENT(dec_cnt) > 0){
             swap(dec_cnt, PARENT(dec_cnt));
             dec_cnt = PARENT(dec_cnt);
         }
@@ -79,6 +82,16 @@ public:
      */
 	int size(){
         return queue_size;
+    }
+
+    /**
+     * Set default to be returned from pop() when queue_size is 0,
+     * this is optional
+     * @param default_T
+     *      The default value
+     */
+    void set_default(T default_T){
+        heap_array[0] = default_T;
     }
 
 private:
