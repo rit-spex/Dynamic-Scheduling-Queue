@@ -17,6 +17,43 @@ Routines on execution will be removed from the min-heap, then the function in ro
 Adding routines to the DSQ will create a struct as defined above, then the newly created struct will be inserted into the DSQ. 
 
 ### Usage
-### Contributors 
-Dylan Wagner
+
+To implement the DSQ first research the target platform specific long maximum size which can be calculated using this formula (2^(SIZEOFLONGBYTES*8)). Then add this value into the DSQ.h file under the macro MAX_SIZE_LONG. Include the DSQ.h header into program. Now create a DSQ object in your program as follows:
+
+`DSQ NAMEOFVAR;`
+
+This will create a DSQ object which will be used to control execution of routines within your program. To add routines into the DSQ, the add_routine() function must be used, this function take the following parameters in this order: 
+
+`int type, int priority_mult, void (*routine_addr)()`
+
+The type parameter is used to define which type of routine is to be added. NOTE thise value is not used by the DSQ currently. 
+
+The priority_mult parameter is used to define how often the routine will be called. (0 most often ... to least often)
+
+The void (*routine_addr)() is the address of the routine. This value can be passed as follows for example:
+
+`add_routine(0, 1, testFunc);`
+
+The routine passed to the add_routine function should have a return type of void and take no parameters, for example:
+
+```
+void testFunc(){
+    std::cout << "Hello World! ";
+}
+```
+
+Now after the routine has been added into the DSQ, the execute function can be called to run exactly one routine at a time. The execute function can be used as follows:
+
+`dsq.execute();`
+
+On the event the DSQ is empty, a default routine will be called. A default routine should always be set and can be set as follows.
+
+`dsq.set_default(type, (*routine_addr)())`
+
+To access the size of the DSQ the get_size function can be used. 
+
+`dsq.get_size();`
+
+### Contributor
+Dylan Wagner(drw6528@rit.edu
 
