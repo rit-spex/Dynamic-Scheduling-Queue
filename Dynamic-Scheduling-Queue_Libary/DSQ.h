@@ -13,6 +13,11 @@
 #include "queue"
 
 #define PRIORITY_BASE 4
+
+// WARNING! Platform Specific
+// Change these values, platform specific
+// 4294967295 for 4 byte long 18446744073709551615 for 8 byte long
+#define MAX_SIZE_LONG 4294967295 // Platform Specific
 #define PRIORITY_CAP 250
 
 // struct Routine -- holds information regarding routines
@@ -36,31 +41,40 @@ private:
 	unsigned long int priority_cnt; // main priority counter
 	// min-heap
 	priority_queue<Routine, PRIORITY_CAP, Comparator> sch_queue;
-	
-	// create_routine - creates a Routine struct on the stack, fills in the values 
-	// then returns the created struct.
-	// args:
-	//		type: int - type as int, can also be used with a enum
-	//		priority_mult: int - ranging from (0+)
-	//		routine_addr: void(*)()
-	// return:
-	//		The Routine struct created and filled in with the parameters. 
+
+    /**
+     * creates a Routine struct on the stack, fills in the values
+	 * then returns the created struct.
+     * @param type
+     *      type as int, can also be used with a enum
+     * @param priority_mult
+     *      ranging from (0+)
+     * @param routine_addr
+     *      Function pointer to a routine function
+     * @return
+     *      Newly constructed Routine struct
+     */
 	Routine create_routine(int type, int priority_mult, void (*routine_addr)());
-	
-	// insert_routine - inserts the provided routine into the sch_queue
-	// args:
-	//		routine: Routine - the routine to be inserted
+
+    /**
+     * Inserts the provided routine into the sch_queue
+     * @param routine
+     *      The routine to be inserted
+     */
 	void insert_routine(const Routine &routine);
-	
-	// calculate_priority - used to calculate the priority value stored in the Routine struct
-	// args:
-	//		priority_mult: int - used to specify execution interval
-	// return:
-	// 		value containing the priority value
+
+    /**
+     * Used to calculate the priority value stored in the Routine struct
+     * @param priority_mult
+     *      Used to specify execution interval
+     * @return
+     *      Value containing the priority value
+     */
 	unsigned long int calculate_priority(int priority_mult);
-	
-	// priority_reset - resets all priority values within DSQ entires, used when a
-	// priority value reaches sizeof long
+
+    /**
+     * resets all priority values within DSQ entires, used when a priority value reaches sizeof long
+     */
 	void priority_reset();
 	
 	
@@ -68,21 +82,28 @@ public:
 	
 	// public constructor used to initialize DEQ varables. 
 	DSQ();
-	
-	// add_routine -- main method for submitting routines to the DEA
-	// args:
-	//		type: int - type as int, can also be used with a enum
-	//		priority_mult: int - ranging from (0+)
-	//		routine_addr: void(*)()
+
+    /**
+     * Main method for submitting routines to the DEA
+     * @param type
+     *      type as int, can also be used with a enum
+     * @param priority_mult
+     *      ranging from (0+)
+     * @param routine_addr
+     *      Address to execute
+     */
 	void add_routine(int type, int priority_mult, void (*routine_addr)());
-	
-	// execute - called in a loop, main function for executing routines placed in
-	// the DEQ.
+
+    /**
+     * called in a loop, main function for executing routines placed in the DEQ.
+     */
 	void execute();
-	
-	// get_size - getter function
-	// return:
-	//		The size of the priority_queue/DSQ
+
+    /**
+     * Getter function
+     * @return
+     *     The size of the priority_queue/DSQ
+     */
 	int get_size();
 
     /**

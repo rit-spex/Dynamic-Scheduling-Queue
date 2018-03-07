@@ -98,6 +98,15 @@ public:
         heap_array[0] = default_T;
     }
 
+    /**
+     * Return the heap
+     * @return
+     *      The heap
+     */
+    T* peek_heap(){
+        return heap_array;
+    }
+
 private:
 
     // Number of current elements in the queue.

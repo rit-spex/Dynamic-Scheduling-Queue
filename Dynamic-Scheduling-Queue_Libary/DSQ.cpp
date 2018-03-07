@@ -57,12 +57,21 @@ void DSQ::insert_routine(const Routine &routine){
 
 unsigned long int DSQ::calculate_priority(int priority_mult){
 	
-	// TODO check maximum value
+	if(priority_cnt >= MAX_SIZE_LONG) priority_reset();
+
 	return priority_cnt + (PRIORITY_BASE * priority_mult);
 }
 
 void DSQ::priority_reset(){
-	// TODO
+
+    priority_cnt = 0;
+	unsigned long smallest = sch_queue.top().priority_value;
+    int size = sch_queue.size();
+    Routine* heap = sch_queue.peek_heap();
+
+    for (int i = 1; i <= size; ++i) {
+        heap[i].priority_value -= smallest;
+    }
 }
 
 bool Comparator::operator() (const Routine &lhs, const Routine &rhs){
