@@ -26,11 +26,11 @@ This will create a DSQ object which will be used to control execution of routine
 
 `int type, int priority_mult, void (*routine_addr)()`
 
-The type parameter is used to define which type of routine is to be added. NOTE thise value is not used by the DSQ currently. 
+The **type** parameter is used to define which type of routine is to be added. NOTE thise value is not used by the DSQ currently. 
 
-The priority_mult parameter is used to define how often the routine will be called. (0 most often ... to least often)
+The **priority_mult** parameter is used to define how often the routine will be called. (0 most often ... to least often)
 
-The void (*routine_addr)() is the address of the routine. This value can be passed as follows for example:
+The void **(*routine_addr)()** is the address of the routine. This value can be passed as follows for example:
 
 `add_routine(0, 1, testFunc);`
 
