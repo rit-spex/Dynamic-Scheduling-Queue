@@ -30,7 +30,7 @@ The **type** parameter is used to define which type of routine is to be added. N
 
 The **priority_mult** parameter is used to define how often the routine will be called. (0 most often ... to least often)
 
-The void **(*routine_addr)()** is the address of the routine. This value can be passed as follows for example:
+The void **routine_addr** is the address of the routine. This value can be passed as follows for example:
 
 `add_routine(0, 1, testFunc);`
 
@@ -55,5 +55,5 @@ To access the size of the DSQ the get_size function can be used.
 `dsq.get_size();`
 
 ### Contributor
-Dylan Wagner(drw6528@rit.edu
+Dylan Wagner(drw6528@rit.edu)
 
