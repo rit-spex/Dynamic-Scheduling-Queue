@@ -10,6 +10,8 @@
 #include <iostream>
 
 int cnt = 0;
+DSQ dsq;
+
 
 void testFunc(){
 
@@ -18,8 +20,32 @@ void testFunc(){
     std::cout << "\n";
 
     cnt += 1;
+
+    dsq.add_routine(0, 0, testFunc);
 }
 
+void testFunc3(){
+    std::cout << "BAR!\n";
+}
+
+void testFunc2(){
+    std::cout << "FOO!\n";
+
+    dsq.add_routine(0, 2, testFunc2);
+    dsq.add_routine(0, 5, testFunc3);
+}
+
+int main(){
+
+    dsq.add_routine(0, 0, testFunc);
+    dsq.add_routine(0, 2, testFunc2);
+
+    while(true){
+        dsq.execute();
+        std::cout << dsq.get_size();
+    }
+}
+/*
 int main(){
 
     std::cout << sizeof(Routine);
@@ -44,3 +70,4 @@ int main(){
 
     dsq.execute();
 }
+ */
