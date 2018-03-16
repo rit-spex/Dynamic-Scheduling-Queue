@@ -28,7 +28,7 @@ void testFunc2(){
     dsq.add_routine(0, 5, testFunc3);
 }
 
-void setup(){
+void setup() {
     Serial.begin(9600);
     delay(5000);
     Serial.println("DSQ Test");

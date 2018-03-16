@@ -6,7 +6,7 @@
  *      Test program for DSQ
  */
 
-#include "../Dynamic-Scheduling-Queue_Libary/DSQ.h"
+#include "../Dynamic-Scheduling-Queue_Library/DSQ.h"
 #include <iostream>
 
 int cnt = 0;
