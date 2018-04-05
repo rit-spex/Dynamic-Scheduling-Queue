@@ -9,6 +9,10 @@
 
 #include "DSQ.h"
 
+DSQ::DSQ(unsigned int capacity) : sch_queue(capacity) {
+    priority_cnt = 0;
+}
+
 void DSQ::add_routine(int type, int priority_mult, void (*routine_addr)()){
 	
 	// Create routine dynamically 
@@ -37,7 +41,7 @@ void DSQ::set_default(int type, void (*routine_addr)()) {
 }
 
 Routine DSQ::create_routine(int type, int priority_mult, void (*routine_addr)()){
-	Routine routine;
+	Routine routine{};
 	
 	routine.type = type;
 	routine.priority_value = calculate_priority(priority_mult);

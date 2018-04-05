@@ -8,7 +8,7 @@
 
 #include <DSQ.h>
 
-DSQ dsq;
+DSQ dsq(50);
 
 void testFunc(){
 

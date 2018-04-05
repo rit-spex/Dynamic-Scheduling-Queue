@@ -10,7 +10,9 @@
 #include <iostream>
 
 int cnt = 0;
-DSQ dsq;
+unsigned int cap = 50;
+
+DSQ dsq(50);
 
 
 void testFunc(){
@@ -36,7 +38,7 @@ void testFunc2(){
 }
 
 int main(){
-
+    dsq.set_default(1, testFunc);
     dsq.add_routine(0, 0, testFunc);
     dsq.add_routine(0, 2, testFunc2);
 
