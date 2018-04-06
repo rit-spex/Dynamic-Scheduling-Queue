@@ -24,6 +24,10 @@ void testFunc(){
     cnt += 1;
 
     dsq.add_routine(0, 0, testFunc);
+
+    if(cnt == 50000){
+        dsq.clear();
+    }
 }
 
 void testFunc3(){
@@ -38,7 +42,7 @@ void testFunc2(){
 }
 
 int main(){
-    dsq.set_default(1, testFunc);
+    //dsq.set_default(1, testFunc);
     dsq.add_routine(0, 0, testFunc);
     dsq.add_routine(0, 2, testFunc2);
 
