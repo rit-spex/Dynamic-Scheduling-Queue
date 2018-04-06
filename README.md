@@ -20,7 +20,7 @@ Adding routines to the DSQ will create a struct as defined above, then the newly
 
 To implement the DSQ first research the target platform specific long maximum size which can be calculated using this formula (2^(SIZE_OF_LONG_BYTES*8)). Then add this value into the DSQ.h file under the macro MAX_SIZE_LONG. Include the DSQ.h header into program. Now create a DSQ object in your program as follows:
 
-`DSQ NAMEOFVAR;`
+`DSQ NAMEOFVAR(int capacity);`
 
 This will create a DSQ object which will be used to control execution of routines within your program. To add routines into the DSQ, the add_routine() function must be used, this function take the following parameters in this order: 
 
