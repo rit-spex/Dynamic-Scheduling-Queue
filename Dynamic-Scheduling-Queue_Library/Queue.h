@@ -7,6 +7,7 @@
  */
 
 #include <stdlib.h>
+#include <iostream>
 
 #define LCHILD(x) 2 * x
 #define RCHILD(x) 2 * x + 1
@@ -19,16 +20,20 @@ public:
 
     explicit priority_queue(unsigned int cap) : capacity(cap){
 
-        heap_array = (T*) calloc(capacity, sizeof(T));
+        heap_array = (T**) calloc(capacity, sizeof(T*));
+    }
+
+    ~priority_queue() {
+        delete heap_array;
     }
 
     /**
      * Remove first element from the priority queue
      */
-	T pop(){
+	T* pop(){
         if(!queue_size) return heap_array[0]; // If array is empty return default
 
-        T root = heap_array[START];
+        T* root = heap_array[START];
         heap_array[START] = heap_array[queue_size];
         queue_size -= 1;
 
@@ -43,7 +48,7 @@ public:
 
             if(lchild == rchild) break;
 
-            if(compare(heap_array[lchild], heap_array[rchild])){
+            if(compare(*(heap_array[lchild]), *(heap_array[rchild]))){
                 swap(cnt, lchild);
                 cnt = lchild;
             } else {
@@ -52,6 +57,7 @@ public:
                 cnt = rchild;
             }
         }
+
         return root;
     }
 
@@ -61,7 +67,7 @@ public:
      *      First element in the priority queue if queue_size > 0
      *      Default element id queue size is 0
      */
-    T top(){
+    T* top(){
         if(queue_size > 0) return heap_array[START];
         return heap_array[0];
     }
@@ -71,8 +77,7 @@ public:
      * @param element
      *      The element to be inserted.
      */
-    void push(T element){
-
+    void push(T* element){
         if (hit_capacity()) return; // queue is full
 
         queue_size += 1;
@@ -80,7 +85,7 @@ public:
 
         int dec_cnt = queue_size;
 
-        while (compare(element, heap_array[PARENT(dec_cnt)]) && PARENT(dec_cnt) > 0){
+        while (PARENT(dec_cnt) && compare(*element, *(heap_array[PARENT(dec_cnt)]))){
             swap(dec_cnt, PARENT(dec_cnt));
             dec_cnt = PARENT(dec_cnt);
         }
@@ -101,7 +106,7 @@ public:
      * @param default_T
      *      The default value
      */
-    void set_default(T default_T){
+    void set_default(T* default_T){
         heap_array[0] = default_T;
     }
 
@@ -110,7 +115,7 @@ public:
      * @return
      *      The heap
      */
-    T* peek_heap(){
+    T** peek_heap(){
         return heap_array;
     }
 
@@ -122,7 +127,7 @@ private:
     unsigned int capacity;
 
     // Min-Heap array
-    T *heap_array;
+    T** heap_array;
 
     // Compare object for two objects
     Compare compare;
@@ -145,8 +150,8 @@ private:
      *      second element index
      */
     void swap(const int s1, const int s2){
-        T temp = heap_array[s1];
+        T** temp = &heap_array[s1];
         heap_array[s1] = heap_array[s2];
-        heap_array[s2] = temp;
+        heap_array[s2] = *temp;
     }
 };

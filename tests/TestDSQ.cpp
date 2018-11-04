@@ -3,18 +3,22 @@
  * Organization: RIT Space Exploration
  * Author: Dylan Wagner (drw6528@rit.edu)
  * Description:
- *      Test program for DSQ
+ *      Test program for DSQ. To be used for testing on linux. Will
+ *      not work on a Teensy due to stuff
  */
 
 #include "../Dynamic-Scheduling-Queue_Library/DSQ.h"
+#include "../Dynamic-Scheduling-Queue_Library/Routine.h"
 #include <iostream>
+#include <chrono>
+#include <thread>
 
 int cnt = 0;
 unsigned int cap = 50;
 
 DSQ dsq(50);
 
-
+/*
 void testFunc(){
 
     std::cout << "Hello World! ";
@@ -42,16 +46,16 @@ void testFunc2(){
 }
 
 int main(){
-    //dsq.set_default(1, testFunc);
+    dsq.set_default(1, testFunc);
     dsq.add_routine(0, 0, testFunc);
     dsq.add_routine(0, 2, testFunc2);
 
     while(true){
         dsq.execute();
-        std::cout << dsq.get_size();
+        std::cout << dsq.get_size() << std::endl;
     }
 }
-/*
+
 int main(){
 
     std::cout << sizeof(Routine);
@@ -77,3 +81,20 @@ int main(){
     dsq.execute();
 }
  */
+
+int main() {
+    TestRoutine* routine = new TestRoutine(0, &dsq, "FOO");
+    dsq.add_routine(routine);
+
+    //routine->printMsg();
+    //routine->run();
+
+    using namespace std::this_thread;     // sleep_for, sleep_until
+    using namespace std::chrono_literals; // ns, us, ms, s, h, etc.
+    
+    //while (true){
+        std::cout << dsq.get_size() << std::endl;
+        dsq.execute();
+        sleep_for(100ms);
+    //}
+}

@@ -8,15 +8,15 @@
 */
 
 #include "DSQ.h"
+#include "Routine.h"
+#include <iostream>
 
 DSQ::DSQ(unsigned int capacity) : sch_queue(capacity) {
     priority_cnt = 0;
 }
 
-void DSQ::add_routine(int type, int priority_mult, void (*routine_addr)()){
+void DSQ::add_routine(Routine* routine){
 	
-	// Create routine dynamically 
-	Routine routine = create_routine(type, priority_mult, routine_addr);
 	// Place routine into the DSQ(sch_queue)
 	insert_routine(routine);
 }
@@ -25,8 +25,11 @@ void DSQ::execute(){
 
     priority_cnt += 1;
 
-	Routine current_routine = sch_queue.pop();
-    current_routine.routine_addr();
+	Routine* current_routine = sch_queue.pop();
+    current_routine->run();
+    // Everything I know about c++ tells me that this line needs to here
+    // but I guess I don't know enough about c++ 
+    delete current_routine;
 }
 
 int DSQ::get_size(){
@@ -34,13 +37,13 @@ int DSQ::get_size(){
 	return sch_queue.size(); 
 }
 
-void DSQ::set_default(int type, void (*routine_addr)()) {
+void DSQ::set_default(Routine* routine) {
 
-    Routine routine = create_routine(type, 0, routine_addr);
+    //Routine routine = create_routine(type, 0, routine_addr);
     sch_queue.set_default(routine);
 }
 
-Routine DSQ::create_routine(int type, int priority_mult, void (*routine_addr)()){
+/*Routine DSQ::create_routine(int type, int priority_mult, void (*routine_addr)()){
 	Routine routine{};
 	
 	routine.type = type;
@@ -48,10 +51,9 @@ Routine DSQ::create_routine(int type, int priority_mult, void (*routine_addr)())
 	routine.routine_addr = routine_addr;
 	
 	return routine;
-}
+}*/
 
-void DSQ::insert_routine(const Routine &routine){
-	
+void DSQ::insert_routine(Routine* routine){
 	sch_queue.push(routine);
 }
 
@@ -70,12 +72,12 @@ unsigned long int DSQ::calculate_priority(int priority_mult){
 void DSQ::priority_reset(){
 
     priority_cnt = 0;
-	unsigned long smallest = sch_queue.top().priority_value;
+	unsigned long smallest = sch_queue.top()->priority_value;
     int size = sch_queue.size();
-    Routine* heap = sch_queue.peek_heap();
+    Routine** heap = sch_queue.peek_heap();
 
     for (int i = 1; i <= size; ++i) {
-        heap[i].priority_value -= smallest;
+        heap[i]->priority_value -= smallest;
     }
 }
 
@@ -86,6 +88,6 @@ void DSQ::clear() {
     }
 }
 
-bool Comparator::operator() (const Routine &lhs, const Routine &rhs){
+bool Comparator::operator() ( Routine &lhs,  Routine &rhs){
 	return lhs.priority_value < rhs.priority_value;;
 }

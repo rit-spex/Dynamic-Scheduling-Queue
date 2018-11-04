@@ -10,7 +10,8 @@
 #ifndef DSQ_H
 #define DSQ_H
 
-#include "queue"
+#include "Queue.h"
+#include "Routine.h"
 
 #define PRIORITY_BASE 4
 
@@ -19,20 +20,12 @@
 // 4294967295 for 4 byte long 18446744073709551615 for 8 byte long
 #define MAX_SIZE_LONG 4294967295 // Platform Specific
 
-// struct Routine -- holds information regarding routines
-struct Routine{
-	int type;	// type as int, can also be used with a enum
-	unsigned long int priority_value; // determines the placement within the DEQ
-	void (*routine_addr)(); // function pointer to static routine
-};
-
 // create alis between struct Routine and Routine
-typedef struct Routine Routine;
 
 // Comparator class used to to compare Routine objects
 class Comparator{
 public:
-    bool operator() (const Routine& lhs, const Routine& rhs);
+    bool operator() (Routine& lhs, Routine& rhs);
 };
 
 class DSQ{
@@ -55,14 +48,14 @@ private:
      * @return
      *      Newly constructed Routine struct
      */
-	Routine create_routine(int type, int priority_mult, void (*routine_addr)());
+	//Routine create_routine(int type, int priority_mult, void (*routine_addr)());
 
     /**
      * Inserts the provided routine into the sch_queue
      * @param routine
      *      The routine to be inserted
      */
-	void insert_routine(const Routine &routine);
+	void insert_routine(Routine* routine);
 
     /**
      * Used to calculate the priority value stored in the Routine struct
@@ -92,7 +85,7 @@ public:
      * @param routine_addr
      *      Address to execute
      */
-	void add_routine(int type, int priority_mult, void (*routine_addr)());
+	void add_routine(Routine* routine);
 
     /**
      * called in a loop, main function for executing routines placed in the DEQ.
@@ -114,7 +107,7 @@ public:
      * @param routine_addr
      *      Code to execute
      */
-    void set_default(int type, void (*routine_addr)());
+    void set_default(Routine* routine);
 
 	/**
 	 * Remove all elements from the DSQ
